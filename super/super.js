@@ -1,7 +1,7 @@
 const NATS = require('nats');
 
 
-// find a node that is least busy on event buss channel: channelWho
+// find a node that is least busy on event bus channel: channelWho
 
 class EventBus {
     nc
@@ -13,14 +13,13 @@ class EventBus {
     }//()
 
 
-    clusterSelectWorker(job) {        
+    async selectLestBusyWorkerNode(job) {        
         const THIZ = this
         let arg = {job: job }
 
         //host
         return new Promise(function(resolve, reject) {
-            THIZ.nc.requestOne('channelWho', arg, (resp) => {// one worker in the q will build and send one response
-                console.log(resp)
+            THIZ.nc.requestOne('channelWho', arg, (resp) => {// one worker will respond
                 resolve(resp)
             })
         })//pro
@@ -29,3 +28,27 @@ class EventBus {
 
 
 }
+
+let job = 0
+let eb = new EventBus()
+
+async function selectNodes() {
+    let node = await eb.selectLestBusyWorkerNode(job++)
+    console.log(node)
+    
+    node = await eb.selectLestBusyWorkerNode(job++)
+    console.log(node)
+    
+    node = await eb.selectLestBusyWorkerNode(job++)
+    console.log(node)
+    
+    node = await eb.selectLestBusyWorkerNode(job++)
+    console.log(node)
+    
+    node = await eb.selectLestBusyWorkerNode(job++)
+    console.log(node)
+    
+    node = await eb.selectLestBusyWorkerNode(job++)
+    console.log(node)
+}
+selectNodes()

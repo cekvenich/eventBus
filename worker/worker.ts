@@ -14,11 +14,11 @@ class EventBus {
         console.log('running...')
         const THIZ = this
         this.nc.subscribe('channelWho', { queue: 'job.workers' },  async (msg, replyTo, subject, sid) => { // it is a Q
-            console.log(msg)
         
-            // if free, respond, if busy, wait to respond. 
+            // if free, respond with 0 ms delay, if busy, wait to respond, maybe there is a node that is less busy
             let doneArg = await THIZ.delay(THIZ.loadLevel)
-            THIZ.loadLevel+=5 // increase the load level of this instance
+            THIZ.loadLevel+=1000 // increase the load level of this instance 
+            console.log('job',msg, THIZ.guid, THIZ.loadLevel)
             THIZ.nc.publish(replyTo, doneArg)
 
         })
