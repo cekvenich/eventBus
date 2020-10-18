@@ -1,13 +1,6 @@
 {
   "name": "super",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "make-fetch-happen": ">=8.0.10",
     "nats": ">=1.4.12"

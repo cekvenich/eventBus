@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "make-fetch-happen": ">=8.0.10",
-    "nats": ">=1.4.12"
+    "nats": ">=1.4.12",
+    "uuid": ">=8.3.1"
   },
   "devDependencies": {
     "@types/node": ">=14.11.10",
