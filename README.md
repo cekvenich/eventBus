@@ -1,17 +1,15 @@
 # EventBus design pattern
 
-Micro-services is a type of distributed computing that enables finer granularity of scaling. 
-Obviously point to point communication between micro-services is silly, so nodes are architecturally discouraged of calling each other directly: instead they talk to each other via an enterprise event bus. There are many event bus alternatives, one is NATS, and it supports many languages. You can host NATS locally or use it as a cloud service via Synadia. I find NATS easier to work with than Kafka.
+Microservices is a type of distributed computing that enables finer granularity of scaling. 
+Obviously point to point communication between microservices is silly, so nodes are architecturally discouraged of calling each other directly: instead they talk to each other via an enterprise event bus. There are many event bus alternatives, one is NATS, and it supports many languages. You can host NATS locally or use it as a cloud service via Synadia. I find NATS easier to work with than Kafka.
 
 
-A common need is to pick a node in a micro-service cluster that is least busy so that you can assign some work to the least busy node.
+A common need is to pick a node in *a* microservice cluster that is least busy so that you can assign some work to the least busy node.
 
 # Example of 'select least busy node' via an enterprise event bus.
-You can sign up for Synadia for free.
+First, sign up for Synadia for free so you can have an cloud even bus.
 
-There are two blocks of code you need.
-
-Ask the nodes, from the super node:
+There are two blocks of code you need. First code block of two, ask the nodes, from the super node:
 ```
 const NATS = require('nats');
 // find a node that is least busy on event bus channel: channelWho
@@ -64,7 +62,7 @@ selectNodes()
 ```
 
 
-And the code on each worker node:
+And. second of two: the code on each worker node:
 
 ```
 const NATS = require('nats');
