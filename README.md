@@ -1,8 +1,13 @@
 # EventBus design pattern
 
+## Intro
 Microservices is a type of distributed computing that enables finer granularity of scaling. 
-Obviously point to point communication between microservices is silly, so nodes are architecturally discouraged of calling each other directly: instead they talk to each other via an enterprise event bus. There are many event bus alternatives, one is NATS, and it supports many languages. You can host NATS locally or use it as a cloud service via Synadia. I find NATS easier to work with than Kafka.
+One popular use of micro services is to be able to scale a micro service by adding nodes, so you have to design ability to do that.
 
+Obviously point to point communication between microservices is silly, so nodes are architecturally discouraged of calling each other directly: instead they talk to each other via an enterprise event bus. Mostly everything on the back end is 'connected' to the event buss to listen to things that they maybe interested it. There are many event bus alternatives, one is NATS, and it supports many languages. You can host NATS locally or use it as a cloud service via Synadia. I find NATS easier to work with than Kafka.
+
+
+## Specific example - pick the last busy node
 
 A common need is to pick a node in *a* microservice cluster that is least busy so that you can assign some work to the least busy node.
 
@@ -107,7 +112,11 @@ new EventBus()
 
 ## How to run
 
-Here you have two folders, super and worker.
-First start a few workers via: node worker.js
+Download or clone the code and sign up for Synadia (or install NATS if you wish).
+Here you have two folders, super and worker
+First start a few workers by running this a few times: node worker.js
 
 And then give the work, by running: node super.js
+
+It should pick the least busy node.
+
