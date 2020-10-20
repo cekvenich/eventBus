@@ -44,3 +44,4 @@ It should pick the least busy node.
 ## Appendix
 
 You can read about other distributed patters on ZeroMQ website.
+Code above is a bit opposite of Raft, where you elected the leader - here we select the worker.
