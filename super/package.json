@@ -1,9 +1,10 @@
 {
   "name": "super",
-  "version": "1.0.0",
+  "version": "0.0.1",
+
   "dependencies": {
     "make-fetch-happen": ">=8.0.10",
-    "nats": ">=1.4.12"
+    "nats": "^2.0.0-210"
   },
   "devDependencies": {
     "@types/node": ">=14.11.10",

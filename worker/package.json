@@ -1,16 +1,9 @@
 {
   "name": "worker",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
+  "version": "0.0.1",
   "dependencies": {
-    "make-fetch-happen": ">=8.0.10",
-    "nats": ">=1.4.12",
+    "express": ">=4.17.1",
+    "nats": ">=2.0.0-210",
     "uuid": ">=8.3.1"
   },
   "devDependencies": {
