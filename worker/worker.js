@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const { connect, JSONCodec } = require("nats");
+const { connect, JSONCodec, credsAuthenticator } = require("nats");
+const { readFileSync } = require("fs");
 const uuid_1 = require("uuid");
 class EventBus {
     constructor() {
@@ -9,7 +10,8 @@ class EventBus {
         this.init();
     } //()
     async init() {
-        this.nc = await connect({ servers: 'connect.ngs.global', userCreds: '../nats.creds', json: true });
+        const creds = readFileSync('../nats.creds');
+        this.nc = await connect({ servers: ['connect.ngs.global'], authenticator: credsAuthenticator(creds) });
         const jc = JSONCodec();
         const THIZ = this;
         console.log('running...');

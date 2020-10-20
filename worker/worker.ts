@@ -1,5 +1,5 @@
-const { connect, JSONCodec } = require("nats")
-
+const { connect, JSONCodec, credsAuthenticator } = require("nats")
+const { readFileSync } = require("fs")
 import { v4 as uuidv4 } from 'uuid'
 
 class EventBus {
@@ -11,7 +11,8 @@ class EventBus {
     }//()
 
     async init() {
-        this.nc =  await connect({ servers: 'connect.ngs.global',  userCreds:'../nats.creds', json: true })
+        const creds = readFileSync('../nats.creds')
+        this.nc =  await connect({ servers: ['connect.ngs.global'], authenticator: credsAuthenticator(creds) })
         const jc = JSONCodec()
         const THIZ = this
         console.log('running...')

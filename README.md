@@ -1,4 +1,4 @@
-# EventBus design pattern
+# Enterprise EventBus design pattern
 
 ## Intro
 Microservices is a type of distributed computing that enables finer granularity of scaling. 
@@ -40,3 +40,7 @@ And then give the work, by running: node super.js
 
 It should pick the least busy node.
 
+
+## Appendix
+
+You can read about other distributed patters on ZeroMQ website.
