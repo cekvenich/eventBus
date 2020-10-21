@@ -11,7 +11,7 @@ class EventBus {
 
     async selectLeastBusyWorkerNode(job) {
         return new Promise(async (resolve) => {
-            const msg = await this.nc.request("channel.who", jc.encode({ job: job }));
+            const msg = await this.nc.request("channel.who", jc.encode({ job: job }), {timeout: 100000});
             resolve(jc.decode(msg.data));
         })
     } //()
