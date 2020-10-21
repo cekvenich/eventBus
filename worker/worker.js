@@ -19,7 +19,7 @@ class EventBus {
             let doneArg = await this.delay(this.loadLevel);
             this.loadLevel += 200; // increase the load level of this instance
             console.log("job", jc.decode(msg.data), this.guid, this.loadLevel);
-            msg.respond(jc.encode({ "done": doneArg }));
+            msg.respond(jc.encode({ "done": doneArg, "load": this.loadLevel }));
         }
     }
     delay(t) {

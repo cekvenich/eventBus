@@ -31,4 +31,8 @@ class EventBus {
     console.log(node);
     node = await eb.selectLeastBusyWorkerNode(job++);
     console.log(node);
+    node = await eb.selectLeastBusyWorkerNode(job++);
+    console.log(node);
+    node = await eb.selectLeastBusyWorkerNode(job++);
+    console.log(node);
 })();

@@ -17,7 +17,6 @@ class EventBus {
     } //()
 }
 
-
 (async () => {
     const creds = readFileSync("../nats.creds");
     const nc = await connect(
@@ -29,21 +28,19 @@ class EventBus {
 
     let node = await eb.selectLeastBusyWorkerNode(job++);
     console.log(node);
-
     node = await eb.selectLeastBusyWorkerNode(job++);
     console.log(node);
-
     node = await eb.selectLeastBusyWorkerNode(job++);
     console.log(node);
-
     node = await eb.selectLeastBusyWorkerNode(job++);
     console.log(node);
-
     node = await eb.selectLeastBusyWorkerNode(job++);
     console.log(node);
-​
     node = await eb.selectLeastBusyWorkerNode(job++);
     console.log(node);
-
+    node = await eb.selectLeastBusyWorkerNode(job++);
+    console.log(node);​
+    node = await eb.selectLeastBusyWorkerNode(job++);
+    console.log(node);
 })();
 
