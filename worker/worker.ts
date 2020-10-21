@@ -21,7 +21,7 @@ class EventBus {
       // if free, respond with 0 ms delay, if busy, wait to respond, maybe there is a node that is less busy
       let doneArg = await this.delay(this.loadLevel);
       this.loadLevel += 100; // increase the load level of this instance
-      console.log("job", jc.decode(msg), this.guid, this.loadLevel);
+      console.log("job", jc.decode(msg.data), this.guid, this.loadLevel);
       msg.respond(jc.encode({ "done": doneArg }));
     }
   }
