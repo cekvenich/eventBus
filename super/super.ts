@@ -5,8 +5,23 @@ const jc = JSONCodec();
 // find a node that is least busy on event bus channel: channelWho
 class EventBus {
     nc;
-    constructor(nc) {
-    this.nc = nc;
+    nodes = {}
+    async init(nc) {
+        const creds = readFileSync("../nats.creds");
+        this.nc = await connect(
+            { servers: ["connect.ngs.global"], authenticator: credsAuthenticator(creds) },
+        );
+        console.log('starting:')
+        
+        const sub = this.nc.subscribe("channel.who");
+
+        for await (const msg of sub) {
+          let dat = jc.decode(msg.data)
+          dat['time']= new Date()  
+          this.nodes[dat.guid]=dat
+        }
+
+
     } //()
 
     async selectLeastBusyWorkerNode(job) {
@@ -18,11 +33,7 @@ class EventBus {
 }
 
 (async () => {
-    const creds = readFileSync("../nats.creds");
-    const nc = await connect(
-        { servers: ["connect.ngs.global"], authenticator: credsAuthenticator(creds) },
-    );
-    console.log('starting:')
+
     let job = 0;
     let eb = new EventBus(nc);
 
