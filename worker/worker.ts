@@ -5,10 +5,10 @@ const jc = JSONCodec();
 
 class EventBus {
   guid = uuidv4(); // or your can read a properties yaml
-  _loadLevel = 0; // you can set the load level of the instances up or down
+ _loadLevel = 0; // you can set the load level of the instances up or down via this private var
   nc;
 
-  setLoad(n) {
+  setLoad(n) { // and fire an event, like flux or a bit like state machine
     this._loadLevel=n
     this.nc.request("channel.who", jc.encode({ node: this.guid, load:n }));
   }
@@ -18,37 +18,22 @@ class EventBus {
     this.nc = await connect(
       { servers: "connect.ngs.global", authenticator: credsAuthenticator(creds) },
     );
-  
     this.setLoad(0)// init
-    setInterval(()=>{// i'm alive heartbeat
-      this.nc.request("channel.who", jc.encode({ node: this.guid, load:this._loadLevel }));
-    }, 900)
-
     console.log("running fake load...");
     setInterval(()=>{
       this.setLoad(this.getRandomInt(0,10))
-    }, 2000
+    }, 2000)
 
-
-
-
-
- 
-  }
+    setInterval(()=>{// i'm alive heartbeat
+      this.nc.request("channel.who", jc.encode({ node: this.guid, load:this._loadLevel }));
+    }, 900)
+  }//()
 
   getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-  delay(t) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(this.guid); // the ID of this instance
-      }, t);
-    });
-  }
+  }//()
 }
 
 //start

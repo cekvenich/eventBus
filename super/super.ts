@@ -6,52 +6,58 @@ const jc = JSONCodec();
 class EventBus {
     nc;
     nodes = {}
-    async init(nc) {
+    async init() {
         const creds = readFileSync("../nats.creds");
         this.nc = await connect(
             { servers: ["connect.ngs.global"], authenticator: credsAuthenticator(creds) },
-        );
+        )
         console.log('starting:')
-        
         const sub = this.nc.subscribe("channel.who");
 
+        //on message
         for await (const msg of sub) {
           let dat = jc.decode(msg.data)
           dat['time']= new Date()  
           this.nodes[dat.guid]=dat
         }
 
-
     } //()
 
-    async selectLeastBusyWorkerNode(job) {
-        return new Promise(async (resolve) => {
-            const msg = await this.nc.request("channel.who", jc.encode({ job: job }), {timeout: 100000});
-            resolve(jc.decode(msg.data));
+    async selectLeastBusyWorkerNode() {
+       console.log(this.nodes)
+    } //()
+
+
+    delay(t) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve()
+            }, t)
         })
-    } //()
+    }//()
 }
 
 (async () => {
+    let eb = new EventBus()
+    await eb.init()
 
-    let job = 0;
-    let eb = new EventBus(nc);
+    eb.selectLeastBusyWorkerNode();
+    eb.delay(2000)
+    eb.selectLeastBusyWorkerNode();
+    eb.delay(2000)
+    eb.selectLeastBusyWorkerNode();
+    eb.delay(2000)
+    eb.selectLeastBusyWorkerNode();
+    eb.delay(2000)
+    eb.selectLeastBusyWorkerNode();
+    eb.delay(2000)
+    eb.selectLeastBusyWorkerNode();
+    eb.delay(2000)
+    eb.selectLeastBusyWorkerNode();
+    eb.delay(2000)
+    eb.selectLeastBusyWorkerNode();
+    eb.delay(2000)
+})()
 
-    let node = await eb.selectLeastBusyWorkerNode(job++);
-    console.log(node);
-    node = await eb.selectLeastBusyWorkerNode(job++);
-    console.log(node);
-    node = await eb.selectLeastBusyWorkerNode(job++);
-    console.log(node);
-    node = await eb.selectLeastBusyWorkerNode(job++);
-    console.log(node);
-    node = await eb.selectLeastBusyWorkerNode(job++);
-    console.log(node);
-    node = await eb.selectLeastBusyWorkerNode(job++);
-    console.log(node);
-    node = await eb.selectLeastBusyWorkerNode(job++);
-    console.log(node);​
-    node = await eb.selectLeastBusyWorkerNode(job++);
-    console.log(node);
-})();
+
 
