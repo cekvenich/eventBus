@@ -9,9 +9,10 @@ class EventBus {
         this.guid = uuid_1.v4(); // or your can read a properties yaml
         this._loadLevel = 0; // you can set the load level of the instances up or down via this private var
     }
-    setLoad(n) {
+    async setLoad(n) {
         this._loadLevel = n;
-        this.nc.request("channel.who", jc.encode({ node: this.guid, load: n }));
+        await this.nc.request("channel.who", jc.encode({ node: this.guid, load: n }));
+        console.log(n);
     }
     async init() {
         const creds = readFileSync("../nats.creds");

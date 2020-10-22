@@ -8,16 +8,16 @@ class EventBus {
  _loadLevel = 0; // you can set the load level of the instances up or down via this private var
   nc;
 
-  setLoad(n) { // and fire an event, like flux or a bit like state machine
+  async setLoad(n) { // and fire an event, like flux or a bit like state machine
     this._loadLevel=n
-    this.nc.request("channel.who", jc.encode({ node: this.guid, load:n }));
+    await this.nc.request("channel.who", jc.encode({ node: this.guid, load:n }));
+    console.log(n)
   }
 
   async init() {
     const creds = readFileSync("../nats.creds");
     this.nc = await connect(
-      { servers: "connect.ngs.global", authenticator: credsAuthenticator(creds) },
-    );
+      { servers: "connect.ngs.global", authenticator: credsAuthenticator(creds) });
     this.setLoad(0)// init
     console.log("running fake load...");
     setInterval(()=>{

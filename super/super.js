@@ -10,15 +10,18 @@ class EventBus {
         const creds = readFileSync("../nats.creds");
         this.nc = await connect({ servers: ["connect.ngs.global"], authenticator: credsAuthenticator(creds) });
         console.log('starting:');
-        const sub = this.nc.subscribe("channel.who");
+    }
+    async init2() {
         //on message
+        const sub = this.nc.subscribe("channel.who");
         for await (const msg of sub) {
             let dat = jc.decode(msg.data);
             dat['time'] = new Date();
-            this.nodes[dat.guid] = dat;
+            //console.log(dat)
+            this.nodes[dat.node] = dat;
         }
     } //()
-    async selectLeastBusyWorkerNode() {
+    selectLeastBusyWorkerNode() {
         console.log(this.nodes);
     } //()
     delay(t) {
@@ -32,20 +35,23 @@ class EventBus {
 (async () => {
     let eb = new EventBus();
     await eb.init();
+    eb.init2();
     eb.selectLeastBusyWorkerNode();
-    eb.delay(2000);
+    await eb.delay(2000);
     eb.selectLeastBusyWorkerNode();
-    eb.delay(2000);
+    await eb.delay(2000);
     eb.selectLeastBusyWorkerNode();
-    eb.delay(2000);
+    await eb.delay(2000);
     eb.selectLeastBusyWorkerNode();
-    eb.delay(2000);
+    await eb.delay(2000);
     eb.selectLeastBusyWorkerNode();
-    eb.delay(2000);
+    await eb.delay(2000);
     eb.selectLeastBusyWorkerNode();
-    eb.delay(2000);
+    await eb.delay(2000);
     eb.selectLeastBusyWorkerNode();
-    eb.delay(2000);
+    await eb.delay(2000);
     eb.selectLeastBusyWorkerNode();
-    eb.delay(2000);
+    await eb.delay(2000);
+    eb.selectLeastBusyWorkerNode();
+    await eb.delay(2000);
 })();
