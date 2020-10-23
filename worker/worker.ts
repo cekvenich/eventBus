@@ -5,12 +5,12 @@ const jc = JSONCodec();
 
 class EventBus {
   guid = uuidv4(); // or your can read a properties yaml
- _loadLevel = 0; // you can set the load level of the instances up or down via this private var
+  _loadLevel = 0; // you can set the load level of the instances up or down via this private var
   nc;
 
   async setLoad(n) { // and fire an event, like flux or a bit like state machine
     this._loadLevel=n
-    await this.nc.request("channel.who", jc.encode({ node: this.guid, load:n }));
+    await this.nc.publish("channel.who", jc.encode({ node: this.guid, load:n }))
     console.log(n)
   }
 
@@ -25,7 +25,7 @@ class EventBus {
     }, 2000)
 
     setInterval(()=>{// i'm alive heartbeat
-      this.nc.request("channel.who", jc.encode({ node: this.guid, load:this._loadLevel }));
+      this.nc.publish("channel.who", jc.encode({ node: this.guid, load:this._loadLevel }))
     }, 900)
   }//()
 

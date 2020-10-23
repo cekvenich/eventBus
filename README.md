@@ -19,7 +19,7 @@ There are two blocks of code you need. First code block of two, sends the curren
 ```
 class EventBus {
   guid = uuidv4(); // or your can read a properties yaml
- _loadLevel = 0; // you can set the load level of the instances up or down via this private var
+  _loadLevel = 0; // you can set the load level of the instances up or down via this private var
   nc;
   async setLoad(n) { // and fire an event, like flux or a bit like state machine
     this._loadLevel=n

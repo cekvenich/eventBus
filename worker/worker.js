@@ -11,7 +11,7 @@ class EventBus {
     }
     async setLoad(n) {
         this._loadLevel = n;
-        await this.nc.request("channel.who", jc.encode({ node: this.guid, load: n }));
+        await this.nc.publish("channel.who", jc.encode({ node: this.guid, load: n }));
         console.log(n);
     }
     async init() {
@@ -23,7 +23,7 @@ class EventBus {
             this.setLoad(this.getRandomInt(0, 10));
         }, 2000);
         setInterval(() => {
-            this.nc.request("channel.who", jc.encode({ node: this.guid, load: this._loadLevel }));
+            this.nc.publish("channel.who", jc.encode({ node: this.guid, load: this._loadLevel }));
         }, 900);
     } //()
     getRandomInt(min, max) {

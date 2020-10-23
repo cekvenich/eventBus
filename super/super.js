@@ -12,14 +12,16 @@ class EventBus {
         console.log('starting:');
     }
     async init2() {
-        //on message
         const sub = this.nc.subscribe("channel.who");
-        for await (const msg of sub) {
-            let dat = jc.decode(msg.data);
-            dat['time'] = new Date();
-            //console.log(dat)
-            this.nodes[dat.node] = dat;
-        }
+        //on message:
+        (async () => {
+            for await (const msg of sub) {
+                let dat = jc.decode(msg.data);
+                dat['time'] = new Date();
+                //console.log(dat)
+                this.nodes[dat.node] = dat;
+            }
+        })();
     } //()
     selectLeastBusyWorkerNode() {
         console.log(this.nodes);
