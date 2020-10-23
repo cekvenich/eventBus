@@ -74,7 +74,7 @@ Download or clone the code in this git repo.
 You have two folders, super and worker, do 'npm i' in each.
 First start a few workers by running this a few times: node worker.js
 
-And then give the work, by running: node super.js
+And then run: node super.js
 That is it, it should allow you to pick the least busy node! 
 
 
