@@ -4,12 +4,12 @@
 Microservices is a type of distributed computing that enables finer granularity of scaling. 
 One popular use of micro services is to be able to scale a micro service by adding nodes, so you have to design ability to do that.
 
-Obviously point to point communication between microservices is silly, so nodes are architecturally discouraged of calling each other directly: instead they talk to each other via an enterprise event bus. Mostly everything on the back end is 'connected' to the event buss to listen to things that they maybe interested it. There are many event bus alternatives, one is NATS, and it supports many languages. You can host NATS locally or use it as a cloud service via Synadia. I find NATS easier to work with than Kafka.
+Obviously point to point communication between microservices is silly, so nodes are architecturally discouraged of calling each other directly: instead they talk to each other via an enterprise event bus. (It looks to me that people have outgrown things like MuleSoft and 3Scale) Mostly everything on the back end is 'connected' to the event buss to listen to things that they maybe interested it. There are many event bus alternatives, one is NATS, and it supports many languages. You can host NATS locally or use it as a cloud service via Synadia. I find NATS easier to work with than Kafka.
 
 
 ## Specific example - pick the last busy node
 
-A common need is to pick a node in *a* microservice cluster that is least busy so that you can assign some work to the least busy node.
+A common need is to pick a node in *a* microservice cluster that is least busy so that you can assign some work to the least busy node. This can be used to add nodes to your Microservices cluster as needed, in order to scale it. That is the point of micro services - independent scaling. 
 
 # Example of 'select least busy node' via an enterprise event bus.
 First, sign up for Synadia for free so you can have an cloud even bus. (or install NATS if you wish to run the event bus by self).
@@ -84,4 +84,4 @@ It should allow you to pick the least busy node.
 ## More
 
 You can read about other distributed patters on ZeroMQ website ( https://zguide.zeromq.org )
-Code above is a bit opposite of Raft, where you elected the leader - here we can select the worker. His can be used to add nodes to your Microservices cluster as needed.
+Code above is a bit opposite of Raft, where you elected the leader - here we can select the worker. 
