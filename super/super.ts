@@ -23,7 +23,7 @@ class EventBus {
         }
     } //()
 
-    selectLeastBusyWorkerNode() {
+    selectLeastBusyWorkerNode() { // a map/dictionary of nodes that includes load
        console.log(this.nodes)
     } //()
 

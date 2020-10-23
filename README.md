@@ -1,20 +1,21 @@
-# Enterprise EventBus design pattern
+# Leveraging an Enterprise EventBus design pattern
 
 ## Intro
-Microservices is a type of distributed computing that enables finer granularity of scaling. 
-One popular use of micro services is to be able to scale a micro service by adding nodes, so you have to design ability to do that.
+Microservices is a type of distributed computing that enables finer granularity of scaling and other benefits. (eg working with legacy code.) 
+But the popular use of micro services is to be able to scale a micro service by adding nodes, and you have to design the ability to do that.
 
-Obviously point to point communication between microservices is silly, so nodes are architecturally discouraged of calling each other directly: instead they talk to each other via an enterprise event bus. (It looks to me that people have outgrown things like MuleSoft and 3Scale) Mostly everything on the back end is 'connected' to the event buss to listen to things that they maybe interested it. There are many event bus alternatives, one is NATS, and it supports many languages. You can host NATS locally or use it as a cloud service via Synadia. I find NATS easier to work with than Kafka.
+Obviously point to point communication between microservices is silly, so nodes are architecturally discouraged of calling each other directly: instead they talk to each other via an enterprise event bus. (It looks to me that people have outgrown things like MuleSoft and 3Scale) Mostly everything on the back end is 'connected' to the event bus to listen to things that they maybe interested it. This way you can add new types of microservices or deprecate other types of micro services. There are many event bus alternatives, one is NATS, and it supports many languages. You can host NATS locally or use it as a cloud service via Synadia. I find NATS easier to work with than Kafka for Enterprise EventBus(EEB).
 
+## A specific EEB design pattern example - pick the last busy node
 
-## Specific example - pick the last busy node
+A common need is to pick a node within a specific type of *a* microservice cluster that is least busy so that you can assign some work to the least busy node. This can also be used to add nodes to your microservices cluster as needed, in order to scale that microservice. That is one of the points of micro services - independent scaling of microservice culsters. 
 
-A common need is to pick a node in *a* microservice cluster that is least busy so that you can assign some work to the least busy node. This can be used to add nodes to your Microservices cluster as needed, in order to scale it. That is the point of micro services - independent scaling. 
+# Code example of 'pick the last busy node' via an enterprise event bus.
+First, sign up for Synadia for free so you have an enterprise event bus. Or install NATS if you wish to run the event bus by self and not in the cloud.
 
-# Example of 'select least busy node' via an enterprise event bus.
-First, sign up for Synadia for free so you can have an cloud even bus. (or install NATS if you wish to run the event bus by self).
+You can glance the NATS docs here: https://github.com/nats-io/nats.js/tree/nd 
 
-There are two blocks of code you need. First code block of two, send the current node's current load to the supper node:
+There are two blocks of code you need. First code block of two, sends the current node's current load to the supper node:
 ```
 class EventBus {
   guid = uuidv4(); // or your can read a properties yaml
@@ -43,9 +44,7 @@ class EventBus {
 }
 ```
 
-
-And second, the code on supper to show load by node:
-
+And second, the code on supper node to show load by node:
 ```
 class EventBus {
     nodes = {}
@@ -61,24 +60,23 @@ class EventBus {
         }
     } //()
 
-    selectLeastBusyWorkerNode() {
+    selectLeastBusyWorkerNode() { // a map/dictionary of nodes that includes load
        console.log(this.nodes)
     } //()
 }
 
 ```
+That is the code.
 
 ## How to run
 
-You can glance the NATS docs here: https://github.com/nats-io/nats.js/tree/nd
+Download or clone the code in this git repo.
 
-Download or clone the code. 
-Here you have two folders, super and worker
+You have two folders, super and worker, do 'npm i' in each.
 First start a few workers by running this a few times: node worker.js
 
 And then give the work, by running: node super.js
-
-It should allow you to pick the least busy node.
+That is it, it should allow you to pick the least busy node! 
 
 
 ## More
