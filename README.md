@@ -71,7 +71,8 @@ That is the code.
 
 Download or clone the code in this git repo.
 
-You have two folders, super and worker, do 'npm i' in each.
+You have two folders, super and worker, do 'npm i' in each. Get nats.creds from Synadia or configure your own NATS.
+ 
 First start a few workers by running this a few times: node worker.js
 
 And then run: node super.js
