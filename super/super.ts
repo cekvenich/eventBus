@@ -15,12 +15,12 @@ class EventBus {
     async init2() {
         //on message
         const sub = this.nc.subscribe("channel.who");
-        for await (const msg of sub) {
+        (async ()=> { for await (const msg of sub) {
           let dat = jc.decode(msg.data)
           dat['time']= new Date()  
           //console.log(dat)
           this.nodes[dat.node]=dat
-        }
+        }})()
     } //()
 
     selectLeastBusyWorkerNode() { // a map/dictionary of nodes that includes load

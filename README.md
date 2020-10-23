@@ -64,7 +64,6 @@ class EventBus {
        console.log(this.nodes)
     } //()
 }
-
 ```
 That is the code.
 
