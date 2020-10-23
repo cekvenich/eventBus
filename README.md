@@ -81,5 +81,5 @@ That is it, it should allow you to pick the least busy node!
 
 ## More
 
-You can read about other distributed patters on ZeroMQ website ( https://zguide.zeromq.org )
+You can read about other distributed patterns on ZeroMQ website ( https://zguide.zeromq.org )
 Code above is a bit opposite of Raft, where you elected the leader - here we can select the worker. 
