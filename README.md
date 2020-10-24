@@ -1,4 +1,4 @@
-# Leveraging an Enterprise EventBus design pattern
+# Leveraging an Enterprise EventBus design pattern - least busy
 
 ## Intro
 Microservices is a type of distributed computing that enables finer granularity of scaling and other benefits. (eg working with legacy code.) 
@@ -6,11 +6,11 @@ But the popular use of micro services is to be able to scale a micro service by 
 
 Obviously point to point communication between microservices is silly, so nodes are architecturally discouraged of calling each other directly: instead they talk to each other via an enterprise event bus. (It looks to me that people have outgrown things like MuleSoft, RabbitMQ, Kafka or 3Scale). Mostly everything on the back end is 'connected' to the event bus to listen to things that they maybe interested it. This way you can add new types of microservices or deprecate other types of micro services. There are many event bus alternatives, one is NATS, and it supports many languages. You can host NATS locally or use it as a cloud service via Synadia. I don't see how anyone can do microservices without a good enterprise event bus(EEB). 
 
-## A specific EEB design pattern example - pick the last busy node
+## A specific EEB design pattern example - pick the least busy node
 
 A common need is to pick a node within a specific type of *a* microservice cluster that is least busy so that you can assign some work to the least busy node. This can also be used to add nodes to your microservices cluster as needed, in order to scale that microservice. That is one of the points of micro services - independent scaling of microservice clusters. 
 
-# Code example of 'pick the last busy node' via an enterprise event bus.
+# Code example of 'pick the least busy node' via an enterprise event bus.
 First, sign up for Synadia for free so you have an enterprise event bus. Or install NATS if you wish to run the event bus by self and not in the cloud.
 
 You can glance the NATS docs here: https://github.com/nats-io/nats.js/tree/nd 
