@@ -8,7 +8,7 @@ Obviously point to point communication between microservices is silly, so nodes 
 
 ## A specific EEB design pattern example - pick the last busy node
 
-A common need is to pick a node within a specific type of *a* microservice cluster that is least busy so that you can assign some work to the least busy node. This can also be used to add nodes to your microservices cluster as needed, in order to scale that microservice. That is one of the points of micro services - independent scaling of microservice culsters. 
+A common need is to pick a node within a specific type of *a* microservice cluster that is least busy so that you can assign some work to the least busy node. This can also be used to add nodes to your microservices cluster as needed, in order to scale that microservice. That is one of the points of micro services - independent scaling of microservice clusters. 
 
 # Code example of 'pick the last busy node' via an enterprise event bus.
 First, sign up for Synadia for free so you have an enterprise event bus. Or install NATS if you wish to run the event bus by self and not in the cloud.
