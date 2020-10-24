@@ -38,7 +38,7 @@ class EventBus {
     }, 2000)
 
     setInterval(()=>{// i'm alive heartbeat
-      this.nc.publish("channel.who", jc.encode({ node: this.guid, load:this._loadLevel }));
+      this.nc.publish("channel.who", jc.encode({ node: this.guid, load:this._loadLevel }))
     }, 900)
   }//()
 }
@@ -55,7 +55,6 @@ class EventBus {
         (async ()=> { for await (const msg of sub) {
           let dat = jc.decode(msg.data)
           dat['time']= new Date()  
-          //console.log(dat)
           this.nodes[dat.node]=dat
         }})()
     } //()
