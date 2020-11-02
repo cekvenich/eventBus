@@ -15,7 +15,7 @@ First, sign up for Synadia for free so you have an enterprise event bus. Or inst
 
 You can glance the NATS docs here: https://github.com/nats-io/nats.js/tree/nd 
 
-There are two blocks of code you need. First code block of two, sends the current node's current load to the supper node:
+There are two blocks of code you need. First code block of two, sends the current node's current load to the super node:
 ```
 class EventBus {
   guid = uuidv4(); // or your can read a properties yaml
@@ -44,7 +44,7 @@ class EventBus {
 }
 ```
 
-And second, the code on supper node to show load by node:
+And second, the code on super node to show load by node:
 ```
 class EventBus {
     nodes = {}
